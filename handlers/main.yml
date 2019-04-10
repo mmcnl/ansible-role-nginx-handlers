@@ -1,0 +1,20 @@
+---
+# see
+# https://stackoverflow.com/questions/22649333/ansible-notify-handlers-in-another-role
+# for info on using a separate role and dependencies to share handlers
+
+# see https://stackoverflow.com/a/43451315/1163042 for info on
+# multi-step/conditional handlers
+
+- name: validate nginx config
+  command: "/usr/sbin/nginx -t"
+  register: nginx_config_valid
+  listen: restart nginx
+
+- name: restart nginx service
+  systemd:
+    name: nginx
+    enabled: yes
+    state: restarted
+  when: nginx_config_valid
+  listen: restart nginx

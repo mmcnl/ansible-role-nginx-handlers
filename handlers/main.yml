@@ -16,5 +16,5 @@
     name: nginx
     enabled: yes
     state: restarted
-  when: nginx_config_valid
+  when: nginx_config_valid|bool
   listen: restart nginx

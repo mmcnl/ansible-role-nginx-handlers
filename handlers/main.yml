@@ -11,6 +11,12 @@
   register: nginx_config_valid
   listen: restart nginx
 
+# https://github.com/systemd/systemd/issues/10529#issuecomment-433319399
+- name: reset systemd failure counts for nginx
+  command: systemctl reset-failed nginx
+  when: not nginx_config_valid.failed
+  listen: restart nginx
+
 - name: restart nginx service
   systemd:
     name: nginx

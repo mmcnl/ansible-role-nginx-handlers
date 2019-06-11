@@ -12,7 +12,7 @@
   listen: restart nginx
 
 # https://github.com/systemd/systemd/issues/10529#issuecomment-433319399
-- name: reset systemd failure counts for nginx
+- name: reset systemd failure counts for nginx # noqa 303
   command: systemctl reset-failed nginx
   when: not nginx_config_valid.failed
   listen: restart nginx

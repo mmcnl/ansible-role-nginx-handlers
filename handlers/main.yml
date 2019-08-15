@@ -22,5 +22,6 @@
     name: nginx
     enabled: yes
     state: restarted
+    daemon_reload: yes
   when: not nginx_config_valid.failed
   listen: restart nginx
